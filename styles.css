@@ -1,55 +1,152 @@
+/* Light Theme */
+:root {
+    --background-color: #f0f2f5;
+    --header-background-color: #4CAF50;
+    --header-text-color: white;
+    --input-border-color: #ddd;
+    --input-background-color: white;
+    --input-text-color: black;
+    --button-background-color: #4CAF50;
+    --button-text-color: white;
+    --button-hover-background-color: #45a049;
+    --song-background-color: white;
+    --song-text-color: black;
+    --song-box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+.dark-theme {
+    --background-color: #1e1e1e;
+    --header-background-color: #333;
+    --header-text-color: white;
+    --input-border-color: #555;
+    --input-background-color: #333;
+    --input-text-color: white;
+    --button-background-color: #555;
+    --button-text-color: white;
+    --button-hover-background-color: #666;
+    --song-background-color: #2c2c2c;
+    --song-text-color: white;
+    --song-box-shadow: rgba(255, 255, 255, 0.1);
+}
+
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
     text-align: center;
+    color: var(--song-text-color);
 }
 header {
-    margin-top: 50px;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
-#searchInput {
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+input[type="text"] {
     width: 300px;
     padding: 10px;
     font-size: 16px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
 }
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    margin-left: 10px;
+}
+button:hover {
+    background-color: var(--button-hover-background-color);
 }
 #results {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
 }
+
+/* Song Card Styles */
 .song {
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: var(--song-background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--song-box-shadow);
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.2s;
+}
+.song:hover {
+    transform: translateY(-10px);
 }
 .song img {
-    max-width: 150px;
-    display: block;
-    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 10px;
+}
+.song-info {
+    text-align: left;
+    margin-top: 10px;
+}
+.song-info p {
+    margin: 5px 0;
 }
 .download-links {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .download-links p {
     margin: 0;
+    font-weight: bold;
 }
-.download-links a {
-    display: block;
-    margin: 5px 0;
-    color: blue;
-    text-decoration: none;
+.download-links select, .download-links button {
+    margin-top: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
 }
-.download-links a:hover {
-    text-decoration: underline;
+.download-links button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    cursor: pointer;
 }
-.download-option {
-    margin: 5px 0;
+.download-links button:hover {
+    background-color: var(--button-hover-background-color);
 }
-.download-option button {
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.player button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    cursor: pointer;
+}
+.player button:hover {
+    background-color: var(--button-hover-background-color);
+}
+.player input[type="range"] {
+    width: calc(100% - 80px);
     margin-left: 10px;
     cursor: pointer;
 }
