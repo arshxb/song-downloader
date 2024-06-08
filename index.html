@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Song Downloader</title>
+    <title>The Song Vault</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Song Downloader</h1>
-        <input type="text" id="searchInput" placeholder="Search for a song...">
-        <button onclick="search()">Search</button>
-        <button id="theme-toggle" onclick="toggleTheme()">Switch to Dark Theme</button>
+        <h1>Song Vault</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a song...">
+            <button onclick="search()">Search</button>
+        </div>
+        <div class="theme-quality-container">
+            <p>Default Quality</p>
+            <select id="qualitySelector" onchange="setDefaultQuality()">
+                <option value="12kbps">12kbps</option>
+                <option value="48kbps">48kbps</option>
+                <option value="96kbps">96kbps</option>
+                <option value="160kbps">160kbps</option>
+                <option value="320kbps" selected>320kbps</option>
+            </select>
+            <button id="theme-toggle" onclick="toggleTheme()">Switch to Dark Theme</button>
+        </div>
     </header>
     <div id="results"></div>
 

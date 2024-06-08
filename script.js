@@ -1,3 +1,29 @@
+let selectedQuality = '320kbps';
+
+function setDefaultQuality() {
+    const qualitySelector = document.getElementById('qualitySelector');
+    selectedQuality = qualitySelector.value;
+    console.log(selectedQuality);
+}
+
+function getQualityValueIndex(selectedQuality) {
+    switch(selectedQuality) {
+        case "320kbps":
+            return 0;
+        case "160kbps":
+            return 1;
+        case "96kbps":
+            return 2;
+        case "48kbps":
+            return 3;
+        case "12kbps":
+            return 4;
+        // Add more cases for other quality levels if needed
+        default:
+            return 0; // highest quality
+    }
+}
+
 async function search() {
     const query = document.getElementById('searchInput').value.trim();
     if (query) {
@@ -62,8 +88,14 @@ function displayResults(results) {
         songDiv.innerHTML = songInfoHTML + downloadLinksHTML;
         resultsDiv.appendChild(songDiv);
 
-        // Set the default quality to the highest available
-        document.getElementById(`quality-${song.id}`).value = song.downloadUrl[0].url;
+        // Set the default quality to user defined one
+        index = getQualityValueIndex(selectedQuality)
+        // check for out of bounds
+        if (song.downloadUrl && song.downloadUrl.length > index) {
+            document.getElementById(`quality-${song.id}`).value = song.downloadUrl[index].url;
+            } else {
+            document.getElementById(`quality-${song.id}`).value = song.downloadUrl[0].url;
+        }
     });
 }
 
@@ -139,3 +171,4 @@ function toggleTheme() {
         themeToggleButton.textContent = 'Switch to Dark Theme';
     }
 }
+

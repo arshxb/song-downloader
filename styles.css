@@ -30,97 +30,48 @@
     --song-box-shadow: rgba(255, 255, 255, 0.1);
 }
 
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    color: var(--song-text-color);
-}
-header {
-    background-color: var(--header-background-color);
-    color: var(--header-text-color);
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
-h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-input[type="text"] {
-    width: 300px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    background-color: var(--input-background-color);
-    color: var(--input-text-color);
-}
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    margin-left: 10px;
-}
-button:hover {
-    background-color: var(--button-hover-background-color);
-}
-#results {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
 
 /* Song Card Styles */
 .song {
     background-color: var(--song-background-color);
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px var(--song-box-shadow);
     margin: 20px;
     padding: 20px;
     width: 300px;
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .song:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 16px var(--song-box-shadow);
 }
 .song img {
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
 .song-info {
+    flex: 1;
     text-align: left;
-    margin-top: 10px;
 }
 .song-info p {
     margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.5;
 }
 .download-links {
-    margin-top: 15px;
-}
-.download-links p {
-    margin: 0;
-    font-weight: bold;
-}
-.download-links select, .download-links button {
-    margin-top: 10px;
-    width: calc(100% - 20px);
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    box-sizing: border-box;
-    background-color: var(--input-background-color);
-    color: var(--input-text-color);
+    text-align: center;
 }
 .download-links button {
+    margin-top: 10px;
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
     background-color: var(--button-background-color);
     color: var(--button-text-color);
     cursor: pointer;
@@ -137,7 +88,7 @@ button:hover {
 .player button {
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: var(--button-background-color);
     color: var(--button-text-color);
     cursor: pointer;
@@ -149,5 +100,102 @@ button:hover {
     width: calc(100% - 80px);
     margin-left: 10px;
     cursor: pointer;
+}
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    color: var(--song-text-color);
+}
+header {
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    margin: 0;
+    font-size: 3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+input[type="text"] {
+    width: 300px;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: var(--button-hover-background-color);
+}
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Theme and Quality Selector */
+.theme-quality-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+.theme-quality-container select, .theme-quality-container button {
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.theme-quality-container select:hover, .theme-quality-container button:hover {
+    background-color: var(--button-hover-background-color);
+}
+.theme-quality-container select {
+    flex: 1;
+    margin-right: 10px;
+}
+.theme-quality-container button {
+    flex-shrink: 0;
+    margin-left: 10px;
 }
 
