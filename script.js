@@ -7,6 +7,13 @@ function setDefaultQuality() {
     console.log(selectedQuality);
 }
 
+// Add event listener to input field to detect enter key
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        search();
+    }
+});
+    
 function getQualityValueIndex(selectedQuality) {
     switch(selectedQuality) {
         case "320kbps":
