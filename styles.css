@@ -219,13 +219,14 @@ main {
     padding: 20px;
 }
 
-
 /* Song Card Styles */
 .song {
     background-color: var(--song-background-color);
+    border: 1px solid #ddd;
     border-radius: 20px;
     box-shadow: 0 4px 8px var(--song-box-shadow);
     margin: 20px;
+    margin-bottom: 20px;
     padding: 20px;
     width: 300px;
     transition: transform 0.2s;
@@ -234,7 +235,7 @@ main {
     justify-content: space-between;
 }
 .song:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     box-shadow: 0 8px 16px var(--song-box-shadow);
 }
 .song img {
@@ -253,14 +254,14 @@ main {
 }
 .download-links {
     text-align: center;
+    border-top: 1px solid var(--button-text-color);
 }
 .download-links button {
     margin-top: 10px;
-    width: 150px;
-    padding: 10px;
+    padding: 10px 13px;
     font-size: 16px;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     background-color: var(--button-background-color);
     color: var(--button-text-color);
     cursor: pointer;
@@ -268,29 +269,89 @@ main {
 .download-links button:hover {
     background-color: var(--button-hover-background-color);
 }
+/* Styles for the player */
 .player {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    gap: 10px;
 }
-.player button {
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    cursor: pointer;
-}
+
 .player button:hover {
     background-color: var(--button-hover-background-color);
 }
 .player input[type="range"] {
-    width: calc(100% - 80px);
+    margin-top: 10px;
     margin-left: 10px;
     cursor: pointer;
 }
 
+/* Styles for the seek bar */
+.seek-bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.seek-bar::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+/* Styles for the volume slider */
+.volume-slider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff6347;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ff6347;
+    cursor: pointer;
+}
+
+/* Styles for the download button */
+.download-button {
+    width: 100%;
+}
 
 /* Footer Styles */
 footer {

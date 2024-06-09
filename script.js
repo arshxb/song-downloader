@@ -1,3 +1,4 @@
+const apiEndpoint = "https://saavn.dev/api/search/songs";
 let selectedQuality = '320kbps';
 
 function setDefaultQuality() {
@@ -28,7 +29,7 @@ async function search() {
     const query = document.getElementById('searchInput').value.trim();
     if (query) {
         try {
-            const response = await fetch(`https://saavn.dev/api/search/songs?query=${query}`);
+            const response = await fetch(`${apiEndpoint}?query=${query}`);
             const data = await response.json();
             if (data.success) {
                 displayResults(data.data.results);
@@ -46,6 +47,9 @@ async function search() {
 function displayResults(results) {
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';  // Clear previous results
+    // Hide the welcome message
+    const welcomeElement = document.getElementById('welcome');
+    welcomeElement.style.display = 'none';
 
     results.forEach(song => {
         const songDiv = document.createElement('div');
@@ -56,48 +60,130 @@ function displayResults(results) {
         const imageUrl = song.image && song.image[2] ? song.image[2].url : song.image[0].url;
 
         // Create the song info section
-        let songInfoHTML = `
-            <p><strong>${songName}</strong> by ${artistName}</p>
-            ${imageUrl ? `<img src="${imageUrl}" alt="${songName} cover">` : ''}
-        `;
+        const songInfoDiv = document.createElement('div');
+        songInfoDiv.className = 'song-info';
+
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = `${songName} cover`;
+        songInfoDiv.appendChild(img);
+
+        const songDetailsDiv = document.createElement('div');
+        songDetailsDiv.className = 'song-details';
+
+        const songNameP = document.createElement('p');
+        songNameP.className = 'song-name';
+        songNameP.innerHTML = `<strong>${songName}</strong>`;
+        songDetailsDiv.appendChild(songNameP);
+
+        const artistNameP = document.createElement('p');
+        artistNameP.className = 'artist-name';
+        artistNameP.textContent = `by ${artistName}`;
+        songDetailsDiv.appendChild(artistNameP);
+
+        songInfoDiv.appendChild(songDetailsDiv);
+        songDiv.appendChild(songInfoDiv);
 
         // Create the download and play links section
-        let downloadLinksHTML = '<div class="download-links"><p>Download and Play:</p>';
+        const downloadLinksDiv = document.createElement('div');
+        downloadLinksDiv.className = 'download-links';
+
         if (song.downloadUrl && song.downloadUrl.length > 0) {
             // Sort download options by quality in descending order
             song.downloadUrl.sort((a, b) => parseInt(b.quality) - parseInt(a.quality));
 
             // Create a dropdown for quality selection
-            downloadLinksHTML += `
-                <select id="quality-${song.id}" onchange="updateAudioSource('${song.id}')">
-                    ${song.downloadUrl.map(download => `<option value="${download.url}">${download.quality}</option>`).join('')}
-                </select>
-                <button onclick="downloadSong('${songName}', '${artistName}', '${song.id}')">Download</button>
-                <div class="player">
-                    <audio id="audio-${song.id}" src="${song.downloadUrl[0].url}"></audio>
-                    <button id="play-button-${song.id}" onclick="togglePlay('${song.id}')">Play</button>
-                    <input type="range" id="seek-${song.id}" value="0" max="100" step="1" oninput="seekAudio('${song.id}')">
-                </div>
-            `;
-        } else {
-            downloadLinksHTML += '<p>No download links available.</p>';
-        }
-        downloadLinksHTML += '</div>';
+            
+            const qualitySelect = document.createElement('select');
+            qualitySelect.id = `quality-${song.id}`;
+            qualitySelect.className = 'quality-dropdown';
+            qualitySelect.onchange = () => updateAudioSource(song.id);
+            // todo: This line hides the select element. find a better way to do this, a lot of functionality is dependent on this select element being present in the dom
+            // removing it from dom breaks the updateAudioSource functionality 
+            // before i wanted to provide the option to select the quality for individual songs, but now we providing the default quality for every song
+            qualitySelect.style.display = 'none'; 
 
-        // Combine song info and download links
-        songDiv.innerHTML = songInfoHTML + downloadLinksHTML;
+            song.downloadUrl.forEach(download => {
+                const option = document.createElement('option');
+                option.value = download.url;
+                option.textContent = download.quality;
+                qualitySelect.appendChild(option);
+            });
+            downloadLinksDiv.appendChild(qualitySelect);
+            
+
+
+            // Create the audio player
+            const playerDiv = document.createElement('div');
+            playerDiv.className = 'player';
+
+            const audio = document.createElement('audio');
+            audio.id = `audio-${song.id}`;
+            audio.src = song.downloadUrl[0].url;
+            playerDiv.appendChild(audio);
+
+            const playButton = document.createElement('button');
+            playButton.id = `play-button-${song.id}`;
+            playButton.className = 'play-button';
+            // replace the play button with a play icon
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
+            // playButton.textContent = 'Play';
+            playButton.onclick = () => togglePlay(song.id);
+            playerDiv.appendChild(playButton);
+
+            const seekBar = document.createElement('input');
+            seekBar.type = 'range';
+            seekBar.id = `seek-${song.id}`;
+            seekBar.className = 'seek-bar';
+            seekBar.value = 0;
+            seekBar.max = 100;
+            seekBar.step = 1;
+            seekBar.oninput = () => seekAudio(song.id);
+            playerDiv.appendChild(seekBar);
+
+            downloadLinksDiv.appendChild(playerDiv);
+
+            // Create the volume slider
+            const volumeSlider = document.createElement('input');
+            volumeSlider.type = 'range';
+            volumeSlider.id = `volume-${song.id}`;
+            volumeSlider.className = 'volume-slider';
+            volumeSlider.min = 0;
+            volumeSlider.max = 1;
+            volumeSlider.step = 0.01;
+            volumeSlider.value = 1;
+            volumeSlider.oninput = () => {
+                audio.volume = volumeSlider.value;
+            };
+
+            playerDiv.appendChild(volumeSlider);
+
+            // Create the download button
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'download-button';
+            downloadButton.textContent = 'Download';
+            downloadButton.onclick = () => downloadSong(songName, artistName, song.id);
+            downloadLinksDiv.appendChild(downloadButton);
+        } else {
+            const noDownloadP = document.createElement('p');
+            noDownloadP.textContent = 'No download links available.';
+            downloadLinksDiv.appendChild(noDownloadP);
+        }
+
+        songDiv.appendChild(downloadLinksDiv);
         resultsDiv.appendChild(songDiv);
 
         // Set the default quality to user defined one
-        index = getQualityValueIndex(selectedQuality)
+        let index = getQualityValueIndex(selectedQuality);
         // check for out of bounds
         if (song.downloadUrl && song.downloadUrl.length > index) {
             document.getElementById(`quality-${song.id}`).value = song.downloadUrl[index].url;
-            } else {
+        } else {
             document.getElementById(`quality-${song.id}`).value = song.downloadUrl[0].url;
         }
     });
 }
+
 
 function updateAudioSource(songId) {
     const qualityDropdown = document.getElementById(`quality-${songId}`);
@@ -112,14 +198,14 @@ function togglePlay(songId) {
         if (audio.id === `audio-${songId}`) {
             if (audio.paused) {
                 audio.play();
-                playButton.textContent = 'Pause';
+                playButton.innerHTML = '<i class="fas fa-pause"></i>';
             } else {
                 audio.pause();
-                playButton.textContent = 'Play';
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
             }
         } else {
             audio.pause();
-            playButton.textContent = 'Play';
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
         }
     });
 
