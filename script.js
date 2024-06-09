@@ -163,12 +163,14 @@ async function downloadSong(songName, artistName, songId) {
 
 function toggleTheme() {
     const body = document.body;
-    body.classList.toggle('dark-theme');
+    body.classList.toggle('light-theme');
     const themeToggleButton = document.getElementById('theme-toggle');
-    if (body.classList.contains('dark-theme')) {
-        themeToggleButton.textContent = 'Switch to Light Theme';
+    if (body.classList.contains('light-theme')) {
+        themeToggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+        //themeToggleButton.textContent = 'Switch to dark Theme';
     } else {
-        themeToggleButton.textContent = 'Switch to Dark Theme';
+        themeToggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+        //themeToggleButton.textContent = 'Switch to light Theme';
     }
 }
 

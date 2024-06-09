@@ -1,5 +1,28 @@
-/* Light Theme */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+}
+/* Dark Theme */
 :root {
+    --background-color: #1a1a2e;
+    --header-background-color: linear-gradient(90deg, #ff0099 0%, #493240 100%);
+    --header-text-color: white;
+    --input-border-color: #ff99cc;
+    --input-background-color: #222;
+    --input-text-color: #ff99cc;
+    --button-background-color: #ff99cc;
+    --button-text-color: white;
+    --button-hover-background-color: #ff66a3;
+    --song-background-color: #0d0d17;
+    --song-text-color: black;
+    --song-box-shadow: rgba(0, 0, 0, 0.1);
+    --footer-background-color: #1a1a2e;
+    --footer-text-color: #ff99cc;
+}
+
+/* Light Theme */
+.light-theme {
     --background-color: #f0f2f5;
     --header-background-color: #4CAF50;
     --header-text-color: white;
@@ -8,26 +31,192 @@
     --input-text-color: black;
     --button-background-color: #4CAF50;
     --button-text-color: white;
-    --button-hover-background-color: #45a049;
+    --button-hover-background-color: #07411a;
     --song-background-color: white;
     --song-text-color: black;
     --song-box-shadow: rgba(0, 0, 0, 0.1);
+    --footer-background-color: #f0f2f5;
+    --footer-text-color: #000000;
 }
 
-/* Dark Theme */
-.dark-theme {
-    --background-color: #1e1e1e;
-    --header-background-color: #333;
-    --header-text-color: white;
-    --input-border-color: #555;
-    --input-background-color: #333;
-    --input-text-color: white;
-    --button-background-color: #555;
-    --button-text-color: white;
-    --button-hover-background-color: #666;
-    --song-background-color: #2c2c2c;
-    --song-text-color: white;
-    --song-box-shadow: rgba(255, 255, 255, 0.1);
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--input-text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
+    background: var(--header-background-color);
+    color: var(--header-text-color);
+    padding: 1rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+/* header text and button style */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.center-text {
+    font-family: 'Lato', sans-serif;
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10px; /* Adds space between text and button */
+}
+
+.right-button {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--header-text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.right-button:hover {
+    color: var(--button-hover-background-color);
+}
+
+/* search and quality controls*/
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    box-shadow: 0 4px 10px var(--song-box-shadow);
+    overflow: hidden;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--input-border-color);
+    border-radius: 5px 5px;
+    outline: none;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
+    font-size: 1rem;
+}
+
+.search-bar input[type="text"]::placeholder {
+    color: var(--input-text-color);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--button-hover-background-color);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.search-bar button {
+    padding: 1rem;
+    margin: 0.5rem;
+    border: none;
+    background: var(--button-background-color);
+    color: var(--button-text-color);
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    text-transform: uppercase;
+    width: 20%;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;  
+}
+
+.search-bar button:hover {
+    background: var(--button-hover-background-color);
+    transform: scale(1.05);
+}
+
+.quality-control {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.quality-control label {
+    margin-right: 0.5rem;
+    color: var(--input-text-color);
+}
+
+.quality-control select {
+    padding: 0.5rem;
+    border: 2px solid var(--input-border-color);
+    border-radius: 5px;
+    outline: none;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.quality-control select:hover {
+    border-color: var(--button-hover-background-color);
+}
+
+main {
+    margin: 2rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.welcome {
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;    
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.welcome h2 {
+    margin-top: 0;
+    font-size: 2em;
+}
+
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
 }
 
 
@@ -101,101 +290,86 @@
     margin-left: 10px;
     cursor: pointer;
 }
-/* General Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-    color: var(--song-text-color);
-}
-header {
-    background-color: var(--header-background-color);
-    color: var(--header-text-color);
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-h1 {
-    margin: 0;
-    font-size: 3em;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-.search-bar {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-}
-input[type="text"] {
-    width: 300px;
-    padding: 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 25px;
-    background-color: var(--input-background-color);
-    color: var(--input-text-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s;
-}
-input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: none;
-    border-radius: 25px;
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-}
-button:hover {
-    background-color: var(--button-hover-background-color);
-}
-#results {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
+
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: var(--footer-background-color);
+    color: var(--footer-text-color);
+    letter-spacing: 2px;    
 }
 
-/* Theme and Quality Selector */
-.theme-quality-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 600px;
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
 }
-.theme-quality-container select, .theme-quality-container button {
-    padding: 15px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 25px;
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.theme-quality-container select:hover, .theme-quality-container button:hover {
-    background-color: var(--button-hover-background-color);
-}
-.theme-quality-container select {
-    flex: 1;
-    margin-right: 10px;
-}
-.theme-quality-container button {
-    flex-shrink: 0;
-    margin-left: 10px;
+
+/* Responsive Design */
+
+@media (max-width: 850px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .right-button {
+        font-size: 1.5rem;
+    }
+
+    .controls {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-bar input[type="text"], .search-bar button {
+        box-sizing: border-box;
+        margin: 0.5rem 0;
+        border-radius: 5px;
+    }
+
+    .search-bar button {
+        border-radius: 5px;
+        width: 100%;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        font-weight: bold;        
+    }
+
+    .search-bar button:hover {
+        background: var(--button-background-color);
+        color: var(--button-text-color);
+        transform: initial;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+
+    .quality-control {
+        width: 100%;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .quality-control label, .quality-control select {
+        width: auto;
+        margin: 0.5rem 0;
+    }
+
+    .quality-control label {
+        font-size: 0.9rem;
+        margin-right: 1rem
+    }
+
+    .quality-control select {
+        font-size: 0.9rem;
+    }
 }
 
